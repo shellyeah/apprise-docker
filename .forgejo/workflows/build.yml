@@ -1,0 +1,24 @@
+name: Build and Push
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: /repo
+    steps:
+      - name: Set git remote if not already set
+        run: git remote add forgejo "/var/lib/forgejo/git/fw/apprise-docker.git"
+
+      - name: Checkout repo
+        run: git pull forgejo main
+
+      - name: Push
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+          docker build -t ${{ secrets.DOCKERHUB_USER }}/apprise:latest .
+          docker push ${{ secrets.DOCKERHUB_TOKEN }}/apprise
+
