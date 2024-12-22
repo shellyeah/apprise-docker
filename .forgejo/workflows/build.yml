@@ -6,9 +6,6 @@ on:
 jobs:
   deploy:
     runs-on: docker
-    defaults:
-      run:
-        working-directory: /repo
     steps:
       - name: Set git remote if not already set
         run: git remote add forgejo "/var/lib/forgejo/git/fw/apprise-docker.git"
