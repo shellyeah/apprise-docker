@@ -9,7 +9,7 @@ jobs:
     container: docker.io/docker:dind
     steps:
       - name: Chekout
-:       uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Push
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
