@@ -8,7 +8,9 @@ jobs:
     runs-on: docker
     container: docker.io/docker:dind
     steps:
-      - name: Chekout
+      - name: Prepare Container
+        run: apk add --no-cache nodejs
+      - name: Checkout
         uses: actions/checkout@v4
       - name: Push
         run: |
