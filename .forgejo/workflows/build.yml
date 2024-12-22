@@ -6,13 +6,10 @@ on:
 jobs:
   deploy:
     runs-on: docker
+    container: docker.io/docker:dind
     steps:
-      - name: Set git remote if not already set
-        run: git remote add forgejo "/var/lib/forgejo/git/fw/apprise-docker.git"
-
-      - name: Checkout repo
-        run: git pull forgejo main
-
+      - name: Chekout
+:       uses: actions/checkout@v4
       - name: Push
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
